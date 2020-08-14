@@ -82,9 +82,9 @@ modules:
       - type: extra-data
         filename: code-insiders.deb
         only-arches: [x86_64]
-        url: http://packages.microsoft.com/repos/vscode/pool/main/c/code-insiders/code-insiders_1.48.0-1597220018_amd64.deb
-        sha256: cd7d536d7ade1ece800dd11b2bcd497b0f3124997e16da420a9512a0896dcf0e
-        size: 62642664
+        url: http://packages.microsoft.com/repos/vscode/pool/main/c/code-insiders/code-insiders_1.49.0-1597387803_amd64.deb
+        sha256: 8f8a0f503a3e40c7fba00dc68d182ce14ee5e8ddefbb78523cd3635e8e463a05
+        size: 63249022
         x-checker-data:
           type: debian-repo
           package-name: code-insiders
