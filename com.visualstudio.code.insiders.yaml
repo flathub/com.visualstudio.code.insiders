@@ -60,7 +60,7 @@ modules:
           - ar x code-insiders.deb
           - tar xf data.tar.xz
           - mv usr/share/code-insiders vscode-insiders
-          - rm -r code-insiders.deb control.tar.gz data.tar.xz debian-binary usr
+          - rm -r code-insiders.deb control.tar.* data.tar.xz debian-binary usr
       - type: file
         path: code-insiders.sh
       - type: file
