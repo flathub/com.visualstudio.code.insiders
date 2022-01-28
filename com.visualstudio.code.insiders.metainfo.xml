@@ -23,6 +23,7 @@
     <content_attribute id="social-info">moderate</content_attribute>
   </content_rating>
   <releases>
+    <release version="1.64.0-1643373992" date="2022-01-28"/>
     <release version="1.64.0-1643347471" date="2022-01-28"/>
     <release version="1.64.0-1643260908" date="2022-01-27"/>
     <release version="1.64.0-1643174548" date="2022-01-26"/>
