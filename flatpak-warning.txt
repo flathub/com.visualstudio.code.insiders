@@ -23,14 +23,19 @@ To make the Integrated Terminal automatically use the host system's shell,
 you can add this to the settings:
 
   {
-    "terminal.integrated.shell.linux": "/usr/bin/env",
-    "terminal.integrated.shellArgs.linux": ["--", "flatpak-spawn", "--host", "bash"]
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+          "path": "/usr/bin/flatpak-spawn",
+          "args": ["--host", "--env=TERM=xterm-256color", "bash"]
+        }
+    }
   }
 
 This flatpak provides a standard development environment (gcc, python, etc).
 To see what's available:
 
-  $ flatpak run --command=sh com.visualstudio.code
+  $ flatpak run --command=sh com.visualstudio.code.insiders
   $ ls /usr/bin (shared runtime)
   $ ls /app/bin (bundled with this flatpak)
 
@@ -38,7 +43,7 @@ To get support for additional languages, you have to install SDK extensions, e.g
 
   $ flatpak install flathub org.freedesktop.Sdk.Extension.dotnet
   $ flatpak install flathub org.freedesktop.Sdk.Extension.golang
-  $ FLATPAK_ENABLE_SDK_EXT=dotnet,golang flatpak run com.visualstudio.code
+  $ FLATPAK_ENABLE_SDK_EXT=dotnet,golang flatpak run com.visualstudio.code.insiders
 
 You can use
 
