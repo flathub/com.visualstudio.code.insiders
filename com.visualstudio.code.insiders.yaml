@@ -1,9 +1,9 @@
 app-id: com.visualstudio.code.insiders
 default-branch: stable
 base: org.electronjs.Electron2.BaseApp
-base-version: '20.08'
+base-version: '21.08'
 runtime: org.freedesktop.Sdk
-runtime-version: '20.08'
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 command: code-insiders
 tags: [proprietary]
@@ -17,6 +17,7 @@ finish-args:
   - --socket=ssh-auth
   - --share=network
   - --device=all
+  - --filesystem=xdg-config/gtk-3.0
   - --filesystem=host
   - --allow=devel
   - --talk-name=org.freedesktop.Notifications
@@ -24,9 +25,18 @@ finish-args:
   - --talk-name=org.freedesktop.Flatpak
   - --env=NPM_CONFIG_GLOBALCONFIG=/app/etc/npmrc
   - --env=LD_LIBRARY_PATH=/app/lib
+  - --env=ZYPAK_SPAWN_LATEST_ON_REEXEC=0
   - --filesystem=xdg-config/kdeglobals:ro
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=com.canonical.AppMenu.Registrar.*
+  - --system-talk-name=org.freedesktop.login1
+add-extensions:
+  com.visualstudio.code.insiders.tool:
+    directory: tools
+    subdirectories: true
+    version: '21.08'
+    add-ld-path: lib
+    no-autodownload: true
 cleanup:
   - /include
   - /lib/pkgconfig
@@ -46,6 +56,8 @@ modules:
       - install -Dm644 vscode_insiders_512.png /app/share/icons/hicolor/512x512/apps/com.visualstudio.code.insiders.png
       - install -Dm644 com.visualstudio.code.insiders.metainfo.xml -t /app/share/metainfo
       - install -Dm644 com.visualstudio.code.insiders.desktop -t /app/share/applications
+      - install -Dm644 com.visualstudio.code.insiders-url-handler.desktop -t /app/share/applications
+      - install -Dm644 com.visualstudio.code.insiders-workspace.xml -t /app/share/mime/packages
       - install -Dm644 npmrc -t /app/etc
       - install -Dm644 flatpak-warning.txt -t /app/share/vscode-insiders
       - install -D apply_extra -t /app/bin
@@ -53,6 +65,7 @@ modules:
       - ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libbfd-*.so
         /app/lib
       - ARCH_TRIPLE=$(gcc --print-multiarch) && ln -s /usr/lib/${ARCH_TRIPLE}/libtinfo.so/app/lib/libtinfo.so.5
+      - mkdir /app/tools
     sources:
       - type: script
         dest-filename: apply_extra
@@ -72,6 +85,10 @@ modules:
       - type: file
         path: com.visualstudio.code.insiders.desktop
       - type: file
+        path: com.visualstudio.code.insiders-url-handler.desktop
+      - type: file
+        path: com.visualstudio.code.insiders-workspace.xml
+      - type: file
         path: icons/vscode_insiders_64.png
       - type: file
         path: icons/vscode_insiders_128.png
@@ -88,9 +105,11 @@ modules:
         x-checker-data:
           type: debian-repo
           package-name: code-insiders
-          root: http://packages.microsoft.com/repos/code
+          root: https://packages.microsoft.com/repos/code
           dist: stable
           component: main
+          is-main-source: true
+
       - type: extra-data
         filename: code-insiders.deb
         only-arches: [aarch64]
@@ -100,6 +119,24 @@ modules:
         x-checker-data:
           type: debian-repo
           package-name: code-insiders
-          root: http://packages.microsoft.com/repos/code
+          root: https://packages.microsoft.com/repos/code
           dist: stable
           component: main
+
+  - name: kerberos
+    subdir: src
+    post-install:
+      - install -Dm644 ../krb5.conf /app/etc/krb5.conf
+    sources:
+      - type: archive
+        url: https://kerberos.org/dist/krb5/1.19/krb5-1.19.2.tar.gz
+        sha256: 10453fee4e3a8f8ce6129059e5c050b8a65dab1c257df68b99b3112eaa0cdf6a
+      - type: file
+        path: krb5.conf
+
+  - name: zypak
+    sources:
+      - type: git
+        url: https://github.com/refi64/zypak
+        tag: v2022.03
+        commit: 8424c6bcf909ca2031ebc6537d324bb64772266e
