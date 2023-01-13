@@ -99,9 +99,9 @@ modules:
       - type: extra-data
         filename: code-insiders.deb
         only-arches: [x86_64]
-        url: https://packages.microsoft.com/repos/code/pool/main/c/code-insiders/code-insiders_1.75.0-1673502849_amd64.deb
-        sha256: 37299c05bf5bc2780ee3a657b8c146812ea82bcbd0d1fc40c9cc63e85de9e94b
-        size: 97696192
+        url: https://packages.microsoft.com/repos/code/pool/main/c/code-insiders/code-insiders_1.75.0-1673597298_amd64.deb
+        sha256: 632b7ffc20febbc46a6551a2d7bbbf1181c5cc6df398fe7d79f724793c790b91
+        size: 97711292
         x-checker-data:
           type: debian-repo
           package-name: code-insiders
@@ -113,9 +113,9 @@ modules:
       - type: extra-data
         filename: code-insiders.deb
         only-arches: [aarch64]
-        url: https://packages.microsoft.com/repos/code/pool/main/c/code-insiders/code-insiders_1.75.0-1673501750_arm64.deb
-        sha256: ca401789d7d73f8be7f03919d10ef3229ede559a249e676c8fdfb32910fff1e1
-        size: 86101842
+        url: https://packages.microsoft.com/repos/code/pool/main/c/code-insiders/code-insiders_1.75.0-1673596490_arm64.deb
+        sha256: efabb212a826d941cba2a17b576630c99dc127791fc33c18a5488a5024554e96
+        size: 86078372
         x-checker-data:
           type: debian-repo
           package-name: code-insiders
