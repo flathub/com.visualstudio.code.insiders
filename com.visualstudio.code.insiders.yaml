@@ -43,10 +43,7 @@ modules:
   - name: vscode-insiders
     buildsystem: simple
     build-commands:
-      - install -D code-insiders.sh /app/bin/code-insiders
-      - install -Dm644 vscode_insiders_64.png /app/share/icons/hicolor/64x64/apps/com.visualstudio.code.insiders.png
-      - install -Dm644 vscode_insiders_128.png /app/share/icons/hicolor/128x128/apps/com.visualstudio.code.insiders.png
-      - install -Dm644 vscode_insiders_256.png /app/share/icons/hicolor/256x256/apps/com.visualstudio.code.insiders.png
+      - install -Dm755 code-insiders.sh /app/bin/code-insiders
       - install -Dm644 vscode_insiders_512.png /app/share/icons/hicolor/512x512/apps/com.visualstudio.code.insiders.png
       - install -Dm644 com.visualstudio.code.insiders.metainfo.xml -t /app/share/metainfo
       - install -Dm644 com.visualstudio.code.insiders.desktop -t /app/share/applications
@@ -54,20 +51,15 @@ modules:
       - install -Dm644 com.visualstudio.code.insiders-workspace.xml -t /app/share/mime/packages
       - install -Dm644 npmrc -t /app/etc
       - install -Dm644 flatpak-warning.txt -t /app/share/vscode-insiders
-      - install -D apply_extra -t /app/bin
-      - cp /usr/bin/ar /app/bin
-      - ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libbfd-*.so
-        /app/lib
-      - ARCH_TRIPLE=$(gcc --print-multiarch) && ln -s /usr/lib/${ARCH_TRIPLE}/libtinfo.so/app/lib/libtinfo.so.5
+      - install -Dm755 apply_extra -t /app/bin
       - mkdir /app/tools
     sources:
       - type: script
         dest-filename: apply_extra
         commands:
-          - ar x code-insiders.deb
-          - tar xf data.tar.xz
+          - bsdtar -Oxf code-insiders.deb 'data.tar.xz' | bsdtar -xf -
           - mv usr/share/code-insiders vscode-insiders
-          - rm -r code-insiders.deb control.tar.* data.tar.xz debian-binary usr
+          - rm -rf code-insiders.deb usr
       - type: file
         path: code-insiders.sh
       - type: file
@@ -82,12 +74,6 @@ modules:
         path: com.visualstudio.code.insiders-url-handler.desktop
       - type: file
         path: com.visualstudio.code.insiders-workspace.xml
-      - type: file
-        path: icons/vscode_insiders_64.png
-      - type: file
-        path: icons/vscode_insiders_128.png
-      - type: file
-        path: icons/vscode_insiders_256.png
       - type: file
         path: icons/vscode_insiders_512.png
       - type: extra-data
@@ -119,18 +105,21 @@ modules:
 
   - name: kerberos
     subdir: src
+    config-opts:
+      - --localstatedir=/var/lib
+      - --sbindir=${FLATPAK_DEST}/bin
+      - --disable-rpath
+      - --disable-static
     post-install:
       - install -Dm644 ../krb5.conf /app/etc/krb5.conf
     sources:
       - type: archive
-        url: https://kerberos.org/dist/krb5/1.19/krb5-1.19.2.tar.gz
-        sha256: 10453fee4e3a8f8ce6129059e5c050b8a65dab1c257df68b99b3112eaa0cdf6a
+        url: https://kerberos.org/dist/krb5/1.21/krb5-1.21.2.tar.gz
+        sha256: 9560941a9d843c0243a71b17a7ac6fe31c7cebb5bce3983db79e52ae7e850491
+        x-checker-data:
+          type: html
+          url: https://kerberos.org/dist/
+          version-pattern: Kerberos V5 Release ([\d\.-]*) - current release
+          url-template: https://kerberos.org/dist/krb5/$version0.$version1/krb5-$version.tar.gz
       - type: file
         path: krb5.conf
-
-  - name: zypak
-    sources:
-      - type: git
-        url: https://github.com/refi64/zypak
-        tag: v2022.03
-        commit: 8424c6bcf909ca2031ebc6537d324bb64772266e
