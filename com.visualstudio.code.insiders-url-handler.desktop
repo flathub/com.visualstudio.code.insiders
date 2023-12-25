@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Visual Studio Code (Insiders) - URL Handler
+Name=Visual Studio Code - Insiders - URL Handler
 Comment=Code Editing. Redefined.
 GenericName=Text Editor
 Exec=code-insiders --open-url %U
