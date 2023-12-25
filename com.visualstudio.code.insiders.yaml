@@ -1,8 +1,8 @@
 app-id: com.visualstudio.code.insiders
 base: org.electronjs.Electron2.BaseApp
-base-version: '21.08'
+base-version: '23.08'
 runtime: org.freedesktop.Sdk
-runtime-version: '21.08'
+runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 command: code-insiders
 tags: [proprietary]
@@ -32,7 +32,7 @@ add-extensions:
   com.visualstudio.code.insiders.tool:
     directory: tools
     subdirectories: true
-    version: '21.08'
+    version: '23.08'
     add-ld-path: lib
     no-autodownload: true
 cleanup:
