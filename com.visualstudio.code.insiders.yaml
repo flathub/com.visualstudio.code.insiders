@@ -25,7 +25,7 @@ finish-args:
   - --talk-name=com.canonical.AppMenu.Registrar.*
   - --system-talk-name=org.freedesktop.login1
 add-extensions:
-  com.visualstudio.code.insiders.tool:
+  com.visualstudio.code.tool:
     directory: tools
     subdirectories: true
     version: '23.08'
