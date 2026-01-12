@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component type="desktop">
+<component type="desktop-application">
   <id>com.visualstudio.code.insiders</id>
   <metadata_license>MIT</metadata_license>
   <project_license>LicenseRef-proprietary=https://code.visualstudio.com/license</project_license>
@@ -8,9 +8,9 @@
   <url type="homepage">https://code.visualstudio.com</url>
   <summary>Code editing Redefined</summary>
   <description>
+    <p>**NOTE: This is the proprietary Microsoft build of Visual Studio Code Insiders, packaged into a Flatpak. This repackaging is not supported by Microsoft.**</p>
     <p>Visual Studio Code is a new choice of tool that combines the simplicity of a code editor with what developers need for the core edit-build-debug cycle.</p>
     <p>This is the Insiders edition of Visual Studio Code; an experimental beta release containing new features and updates not yet ready for the stable release stream. If you are experiencing issues with this version, please switch back to the non-Insiders build.</p>
-    <p>This is the proprietary Microsoft build of Visual Studio Code Insiders, packaged into a Flatpak. This repackaging is not supported by Microsoft.</p>
   </description>
   <screenshots>
     <screenshot type="default">
